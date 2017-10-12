@@ -1,0 +1,26 @@
+import operator
+import json
+import re
+import ssl
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+#----------------------------------------------
+
+count = []
+url = input("Enter a url: ")
+url2 = urlopen(url).read()
+var1 = ssl.create_default_context()
+var1.check_hostname = False
+var1.verify_mode = ssl.CERT_NONE
+var2 = BeautifulSoup(url2, 'html.parser')
+for x in var2.find_all('span'):
+	x = str(x)
+	splt = x.split('>')[1]
+	final = splt.split('<')
+	count.append(int(final[0]))
+
+#-----------------------------------------------
+
+print("Count:", len(count))
+print("Sum:", sum(count))
